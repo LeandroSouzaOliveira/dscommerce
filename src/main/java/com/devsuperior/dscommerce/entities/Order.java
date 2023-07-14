@@ -20,14 +20,18 @@ public class Order {
     @JoinColumn(name = "client_id")
     private User client;
 
+    @OneToOne(mappedBy = "order", cascade = CascadeType.ALL)
+    private Payment payment;
+
     public Order() {
     }
 
-    public Order(Long id, Instant moment, OrderStatus status, User client) {
+    public Order(Long id, Instant moment, OrderStatus status, User client, Payment payment) {
         this.id = id;
         this.moment = moment;
         this.status = status;
         this.client = client;
+        this.payment = payment;
     }
 
     public Long getId() {
@@ -62,16 +66,24 @@ public class Order {
         this.client = client;
     }
 
+    public Payment getPayment() {
+        return payment;
+    }
+
+    public void setPayment(Payment payment) {
+        this.payment = payment;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof Order order)) return false;
-        return Objects.equals(getId(), order.getId()) && Objects.equals(getMoment(), order.getMoment()) && getStatus() == order.getStatus() && Objects.equals(getClient(), order.getClient());
+        return Objects.equals(getId(), order.getId()) && Objects.equals(getMoment(), order.getMoment()) && getStatus() == order.getStatus() && Objects.equals(getClient(), order.getClient()) && Objects.equals(getPayment(), order.getPayment());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getId(), getMoment(), getStatus(), getClient());
+        return Objects.hash(getId(), getMoment(), getStatus(), getClient(), getPayment());
     }
 
     @Override
@@ -81,6 +93,7 @@ public class Order {
                 ", moment=" + moment +
                 ", status=" + status +
                 ", client=" + client +
+                ", payment=" + payment +
                 '}';
     }
 }
