@@ -91,13 +91,16 @@ public class Order {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof Order order)) return false;
-        return Objects.equals(getId(), order.getId()) && Objects.equals(getMoment(), order.getMoment()) && getStatus() == order.getStatus() && Objects.equals(getClient(), order.getClient()) && Objects.equals(getPayment(), order.getPayment());
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Order order = (Order) o;
+
+        return Objects.equals(id, order.id);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getId(), getMoment(), getStatus(), getClient(), getPayment());
+        return id != null ? id.hashCode() : 0;
     }
 
     @Override

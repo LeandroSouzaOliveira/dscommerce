@@ -55,13 +55,16 @@ public class Payment {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof Payment payment)) return false;
-        return Objects.equals(getId(), payment.getId()) && Objects.equals(getMoment(), payment.getMoment()) && Objects.equals(getOrder(), payment.getOrder());
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Payment payment = (Payment) o;
+
+        return Objects.equals(id, payment.id);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getId(), getMoment(), getOrder());
+        return id != null ? id.hashCode() : 0;
     }
 
     @Override
