@@ -8,6 +8,7 @@ import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.*;
 
+@SuppressWarnings("serial")
 @Entity
 @Table(name = "tb_user")
 public class User implements UserDetails {
@@ -27,7 +28,7 @@ public class User implements UserDetails {
 
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "tb_user_role", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
-    private Set<Role> roles = new HashSet<>();
+    private Set<Role> authorities = new HashSet<>();
 
     public User() {
     }
@@ -81,6 +82,7 @@ public class User implements UserDetails {
         this.birthDate = birthDate;
     }
 
+    @Override
     public String getPassword() {
         return password;
     }
@@ -93,13 +95,9 @@ public class User implements UserDetails {
         return orders;
     }
 
-    public Set<Role> getRoles() {
-        return roles;
-    }
-
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return roles;
+        return authorities;
     }
 
     @Override
