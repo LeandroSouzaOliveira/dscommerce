@@ -105,6 +105,15 @@ public class User implements UserDetails {
         return email;
     }
 
+    public boolean hasRole(String roleName) {
+        for (Role role : authorities) {
+            if (role.getAuthority().equals(roleName)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     @Override
     public boolean isAccountNonExpired() {
         return true;
